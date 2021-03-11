@@ -4,7 +4,9 @@ const cheerio = require('cheerio');
 const url = "https://manganelo.com/"
 /* GET home page. */
 router.get('/', function(req, res, next) {
-  res.render('index', { title: 'Express' });
+	return res.json({
+		message :'Success'
+	})
 });
 
 router.get('/manga', (req,res ) => {

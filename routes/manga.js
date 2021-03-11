@@ -1,7 +1,7 @@
 var express = require('express');
 var router = express.Router();
 const rp = require('request-promise');
-const $ = require('cheerio');
+const $ = require('cheerio')
 const url = "http://manga-panda.xyz/"
 
 
