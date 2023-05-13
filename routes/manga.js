@@ -11,12 +11,10 @@ router.get('/manga/latest/', (req,res) => {
 	try {
 		const latest = []
 		let total = 0;
-		
 		rp(url).then((html) => {
 			let thumbnail,author, name,description, link,viewsCount, dateUpdated, latestChapter, latestChapterLink;
 			const latestManga = $('.itemupdate', html);
-		
-			console.log(latestManga);
+
 			latestManga.each((index, el) => {
 				thumbnail = $(el).find('img').attr('src');
 				name = $(el).find('a').attr('title');
@@ -28,17 +26,13 @@ router.get('/manga/latest/', (req,res) => {
 					link,
 					latestChapter,
 				});
-				
 			});
 			return res.json({
-
 				data: latest,
 			})
 		});
-
-		
 	} catch (error) {
-		
+
 	}
 });
 router.get('/manga/latest/:pagenumber', (req,res) => {
@@ -197,24 +191,20 @@ router.get('/manga/:slug', (req, res) => {
 		const mangaChapters = [];
 		let title, author, status, alternativeName, dateUpdated, viewCount, thumbnail,description;
 		let mangaGenres = [];
+		
 		rp(url + 'manga/' +mangaLink).then((html) => {
-		
-		
 			let chapter, view, dateUploaded, link;
 			obj.title = $('.manga-info-text > li',html).find('h1').text().trim();
 			obj.thumbnail = $('div.manga-info-top > div', html).find('img').attr('src');
 			obj.alternativeName = $('.manga-info-text > li:nth-child(1)', html).find('span').text().trim();
 			status = $('div.manga-info-top > ul > li:nth-child(3)', html).text().trim().split(':');
 			author = $('div.manga-info-top > ul > li:nth-child(2)', html).text().trim().split(':');
-		
 			description = $('#noidungm', html).text().split(':');
-	
 			obj.status = status[1];
 			obj.description = description[1]; 
 			obj.author = author[1];
-			console.log(obj.thumbnail);
-			$('.chapter-list > .row', html).each((i, el) => {
 			
+			$('.chapter-list > .row', html).each((i, el) => {
 				let chapterText = $(el).find('a').text().trim().split(" ");
 				chapter = chapterText[chapterText.length - 1];
 				let link = $(el).find('a').attr('href');
